@@ -1,12 +1,17 @@
 import React,{useRef} from "react";
 import { useState } from "react";
 import classes from  './Css/AuthForm.module.css'
+import { useDispatch ,useSelector} from "react-redux";
+import {authActions} from  '../Store/Auth-Slice'
+import { useHistory } from "react-router-dom";
 function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [isValid,setIsValid]= useState(false);
   const [password,setPassword] = useState('')
   const [confirmPassword,setconfirmPassword]=  useState("")
 
+  const dispatch = useDispatch()
+  const history = useHistory()
   const emailInputRef = useRef();
   const passwordInputRef = useRef()
   const switchAuthModeHandler = () => {
@@ -74,6 +79,8 @@ returnSecureToken:"true",
         }
     }).then((data)=>{
         console.log(data)
+        history.replace('/welcomepage')
+        dispatch(authActions.login(data.idToken))
         localStorage.setItem("token",data.idToken);
         localStorage.setItem("email",data.email)
     }).catch((err)=>{
