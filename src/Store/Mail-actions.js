@@ -12,7 +12,7 @@ export const addingMail = (obj)=>{
         const addmail = async ()=>{
             try{
                 const res = await axios.post(
-                    `https://mailbox-client-8738c-default-rtdb.firebaseio.com/${email}.json`,obj
+                    `https://mailbox-client-8738c-default-rtdb.firebaseio.com/emails.json`,obj
                 );
                 return res.data;
             }catch(error){
@@ -21,6 +21,47 @@ export const addingMail = (obj)=>{
         };
         const id = await addmail();
         const temp = {id:id,...obj};
+       
         dispatch(mailActions.addmail(temp));
     }
 }
+export const fetchingAllData = ()=>{
+    return async (dispatch)=>{
+        const fetchData = async ()=>{
+            try{
+                const res = await axios.get(
+                    `https://mailbox-client-8738c-default-rtdb.firebaseio.com/emails.json`
+                );
+             
+                const loadedMail = [];
+                for(const key in res.data){
+                    loadedMail.push({
+                        id:key,
+                        from:res.data[key].from,
+                        message:res.data[key].message,
+                        subject:res.data[key].subject,
+                        to:res.data[key].to,
+                    })
+
+                    // if(email=== res.data[key].to){
+                    //      return loadedMail;
+                    // }
+                   
+                    
+                   
+                   
+                }
+
+                return loadedMail;
+
+            }catch(error){
+                console.log(error)
+            }
+        };
+        const data = await fetchData();
+        dispatch(mailActions.fetchAllexpenses(data));
+    }
+}
+
+
+

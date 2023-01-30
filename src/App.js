@@ -14,13 +14,15 @@ import { useDispatch, useSelector } from "react-redux";
 import SentDetails from "./component/Pages/Sent/SentDetails";
 // import { db } from "./component/firebase/firebase";
  
-  
+  import { fetchingAllData } from "./Store/Mail-actions";
 import SentList from "./component/Pages/Sent/SentList";
 function App() {
   const email = localStorage.getItem('email')
   const dispatch = useDispatch()
   const composeopen = useSelector((state)=>state.compose.composeisopen)
-  
+  useEffect(()=>{
+  dispatch(fetchingAllData())
+  },[dispatch])
   return (
    <Fragment>
      

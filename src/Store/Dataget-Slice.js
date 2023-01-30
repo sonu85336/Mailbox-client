@@ -1,14 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialmailstate = {mailitems:[],}
 export const mailSlice  = createSlice({
     name:'dataget',
-    initialState:{mail:[]},
+    initialState:initialmailstate,
     reducers:{
+        fetchAllexpenses(state,action){
+         state.mailitems = action.payload;
+  
+           
+        },
         addmail(state,action){
-            state.mail= [...state.mail,action.payload]
+            state.mailitems= [...state.mailitems,action.payload]
+   
 
-
-        }
+        },
+         
     }
 })
 
