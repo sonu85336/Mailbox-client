@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialmailstate = {mailitems:[],}
+const initialmailstate = {mailitems:[],
+detailsitem:[]}
 export const mailSlice  = createSlice({
     name:'dataget',
     initialState:initialmailstate,
@@ -15,6 +16,19 @@ export const mailSlice  = createSlice({
    
 
         },
+        mailDetails(state,action){
+            state.detailsitem = action.payload
+        },
+        removeMail(state,action){
+            const id = action.payload;
+            const temp = [...state.mailitems];
+             temp.forEach((item,index)=>{
+                if(id===item.id){
+                    temp.splice(index,1);
+                }
+             });
+             state.mailitems = temp;
+        }
          
     }
 })

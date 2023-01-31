@@ -83,16 +83,20 @@
 }
 .emailbody .emailbody__left h4{
     font-size:14px;
+   
+    white-space:nowrap;
+    overflow:hidden;
+     text-overflow:ellipsis;
 }
 .emailbody .emailbody__middle {
   display: flex;
   align-items: center;
 
-  flex: 80%;
+  flex: 70%;
 }
 .emailbody__middle .emailbody__middle__msg {
   display:flex;
-  width:80%;
+  width:70%;
 }
 .emailbody .emailbody__middle p{
     font-size: 14px;

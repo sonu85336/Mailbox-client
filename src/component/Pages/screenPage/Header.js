@@ -10,8 +10,17 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AppsIcon from '@mui/icons-material/Apps';
  
 import { IconButton,Avatar } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../../Store/Auth-Slice';
+import { useHistory } from 'react-router-dom';
  
 const Header = ()=>{
+    const history = useHistory()
+ const dispatch = useDispatch()
+ const logoutHandler = ()=>{
+    dispatch(authActions.logout(null))
+    history.replace('/authpage')
+ }
  
 
     return (
@@ -32,7 +41,7 @@ const Header = ()=>{
            <IconButton><HelpOutlineIcon></HelpOutlineIcon></IconButton>
            <IconButton> <SettingsIcon></SettingsIcon></IconButton>
            <IconButton>    <AppsIcon></AppsIcon></IconButton>
-            <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDaaMPxQTqQmJ8k436XYtwf-HrqdKimahIea5YIxg&s'   ></Avatar>
+            <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDaaMPxQTqQmJ8k436XYtwf-HrqdKimahIea5YIxg&s' onClick={logoutHandler} ></Avatar>
             </div>
         </div>
     )

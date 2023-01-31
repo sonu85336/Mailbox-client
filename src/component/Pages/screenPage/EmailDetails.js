@@ -1,7 +1,7 @@
  
 import { IconButton,Avatar} from '@material-ui/core'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../Css/emaillist.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
  import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -14,17 +14,28 @@ import PrintIcon from '@mui/icons-material/Print';
 import LaunchIcon from '@mui/icons-material/Launch';
 import StarIcon from '@mui/icons-material/Star';
 import ReplyIcon from '@mui/icons-material/Reply';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
  
 //import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-function EmailDetails() {
+function EmailDetails(props) {
     
- 
+ const item = useSelector((state)=>state.mail.detailsitem)
+   
+   
+ const history = useHistory()
+
+console.log(item)
+const backHandler =()=>{
+history.replace('/welcomepage')
+}
+
   return (
     <div className='emaildetails'>
     <div  className='emaillist__settings'>
     <div  className='emaillist__settingsLeft'>
-        <IconButton>
+        <IconButton onClick={backHandler}>
             <ArrowBackIcon   />
         </IconButton>
         <IconButton>
@@ -48,10 +59,11 @@ function EmailDetails() {
         </IconButton>
       </div>
     </div>
-    <div className='emaildetails_message'>
+   
+        <div className='emaildetails_message'>
     <div className='emaildetails__header'>
         <div className='emaildetails__headerLeft'>
-            <h4>hell react</h4>  
+            <h4>{item.subject}</h4>  
             <IconButton>
                 <LabelImportant/>
             </IconButton>
@@ -73,8 +85,8 @@ function EmailDetails() {
             <IconButton>
                 <Avatar/>
             </IconButton> 
-             <h4>sonu</h4>  
-            <p> sonu@gmail.com</p>
+             
+            <p>{item.from}</p>
         </div>
 
         <div className='emaildetails__middleheaderRight'>
@@ -96,13 +108,15 @@ function EmailDetails() {
 
 
 <div className='emaildetails_body'>
-    <p>welcome to react</p>
+    <p>{item.message}</p>
 </div>
 
     
 
 
-    </div></div>
+    </div>
+
+    </div>
   )
 }
 export default EmailDetails;
