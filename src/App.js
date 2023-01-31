@@ -50,7 +50,7 @@ function App() {
   <Route path="/welcomepage/sent">
     <SentList />
   </Route>
-  <Route path="/welcomepage/sent/sentmail">
+  <Route path="/welcomepage/sentmail">
     <SentDetails />
   </Route>
 

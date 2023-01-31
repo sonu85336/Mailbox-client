@@ -1,44 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import '../../Css/emaillist.css'
- 
-//  import { db } from '../../firebase/firebase'
- 
-import SentBody from './SentBody'
-import SentListSetting from './SentListSetting'
- 
-function SentList() {
-const email = localStorage.getItem('emial')
-//  const  userdata = useSelector((state)=>state.dataget.items)
-//   console.log(userdata,'from sentlist')
-const [emails,setEmails]= useState([])
-// useEffect(()=>{
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import "../../Css/emaillist.css";
 
- 
-//   db.collection(email).orderBy('timestamp','desc').onSnapshot(snapshot=>{
-//     setEmails(snapshot.docs.map(doc=>({
-//       id:doc.id,
-//       data:doc.data(),
-//     })))
-//   })
-// },[]) 
-console.log(emails)
+import SentBody from "./SentBody";
+import SentListSetting from "./SentListSetting";
+
+function SentList() {
+  const email = localStorage.getItem("emial");
+const showmail = useSelector((state)=>state.mail.mailitems)
   
 
+  
 
   return (
     <div>
-       
-      <SentListSetting/>
+      <SentListSetting />
+{showmail.map((item)=>(
+  <SentBody id={item.id}
+    key= {item.id}
+    item = {item}
+  />
+))}
       
-  <SentBody/>
-   
-    
-        
-    
-     
     </div>
-  )
+  );
 }
 
 export default SentList;
