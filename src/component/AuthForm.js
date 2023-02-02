@@ -95,7 +95,7 @@ returnSecureToken:"true",
     <React.Fragment>
       <section>
         <div  className={classes.auth}>
-          <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+          <h1>{isLogin ? "Login" : "Sign Up" }</h1>
           <form  onSubmit={submitHandler}>
             <div>
               <div>

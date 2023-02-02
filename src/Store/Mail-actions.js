@@ -23,6 +23,7 @@ export const fetchingAllData = () => {
               message: res.data[key].message,
               subject: res.data[key].subject,
               to: res.data[key].to,
+              read:res.data[key].read,
             });
           }
   
@@ -32,7 +33,7 @@ export const fetchingAllData = () => {
         }
       };
       const data = await fetchData();
-      dispatch(mailActions.fetchAllexpenses(data));
+       dispatch(mailActions.fetchAllexpenses(data));
     };
   };
 
@@ -51,9 +52,25 @@ export const addingMail = (obj) => {
     };
     const id = await addmail();
     const temp = { id: id, ...obj };
- dispatch(mailActions.addmail(temp));
+ //dispatch(mailActions.addmail(temp));
   };
 };
+export const blueticks = (dataid,obj)=>{
+  return async (dispatch) => {
+    const addbluetick = async () =>{
+      try {
+        const res = await axios.put(`https://mailbox-client-8738c-default-rtdb.firebaseio.com/emails/${dataid}.json`,obj)
+     return res.data;  
+    }catch(error){
+      console.log(error)
+    }
+     
+    }
+    await addbluetick();
+    //dispatch(mailActions.readMail({id:dataid}))
+  
+  }
+}
 
 
 export const removingMails = (id) => {

@@ -9,8 +9,8 @@ import Emailtype from './Emailtype'
 function EmailList() {
 
  const showmail = useSelector((state)=>state.mail.mailitems)
-  console.log(showmail)
- 
+  
+  
   return (
     <div>
       <EmailListSetting/>

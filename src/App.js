@@ -16,45 +16,54 @@ import SentDetails from "./component/Pages/Sent/SentDetails";
 import { fetchingAllData } from "./Store/Mail-actions";
 import SentList from "./component/Pages/Sent/SentList";
 import WelcomePage from "./component/Pages/WelcomePage";
+import { mailActions } from "./Store/Dataget-Slice";
 function App() {
   const email = localStorage.getItem("email");
   const dispatch = useDispatch();
   const composeopen = useSelector((state) => state.compose.composeisopen);
+  const mailDetailsopen = useSelector((state)=>state.compose.mailisopen)
   const isLoggedIn = useSelector((state)=>state.auth.isLoggedIn)
+  console.log(isLoggedIn)
+  setInterval(()=>{
   
-  useEffect(() => {
     dispatch(fetchingAllData());
-  }, [dispatch]);
+ 
+  },2000)
+  //   useEffect(()=>{
+  
+  //   dispatch(fetchingAllData());
+  
+  // },[dispatch])
+ 
   return (
     <Fragment>
-    <Route path='*'>
+  {!isLoggedIn  &&<Route path='*'>
  <Redirect   to="/authpage"/>
-   </Route>
-      <Route path="/authpage">
+   </Route>}  
+   {isLoggedIn && <Route path='*'><Redirect to='/welcomepage'/></Route>}
+     {!isLoggedIn && <Route path="/authpage">
         <AuthForm />{" "}
-      </Route>
+      </Route>} 
 
-    {isLoggedIn&&<Header />}   
+    {isLoggedIn &&<Header />}   
 
 <div className="app__body">
-  {isLoggedIn&&<Sidebar />}
- {isLoggedIn&&(<div> <Route path="/welcomepage" exact>
+  {isLoggedIn &&<Sidebar />}
+ {isLoggedIn &&  <Route path="/welcomepage" exact>
     <EmailList />
-  </Route> 
-  {/* <Route path="/welcomepage" exact>
-    <WelcomePage />
-  </Route>  */}
-  <Route path="/welcomepage/mailpage">
+  </Route> }
+ 
+ {isLoggedIn && mailDetailsopen  &&
     <EmailDetails />
-  </Route>
-  <Route path="/welcomepage/sent">
+ } 
+  {isLoggedIn &&<Route path="/welcomepage/sent">
     <SentList />
-  </Route>
-  <Route path="/welcomepage/sentmail">
+  </Route>}
+  {isLoggedIn &&<Route path="/welcomepage/sentmail">
     <SentDetails />
-  </Route>
+  </Route>}
 
-  {composeopen && <Compose />}</div>)}
+  {composeopen && isLoggedIn &&<Compose />}  
 </div> 
     </Fragment>
   );

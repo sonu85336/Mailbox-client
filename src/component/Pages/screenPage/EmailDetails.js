@@ -1,6 +1,6 @@
  
 import { IconButton,Avatar} from '@material-ui/core'
-
+import '../../Css/email.css'
 import React, { useEffect } from 'react'
 import '../../Css/emaillist.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -14,28 +14,31 @@ import PrintIcon from '@mui/icons-material/Print';
 import LaunchIcon from '@mui/icons-material/Launch';
 import StarIcon from '@mui/icons-material/Star';
 import ReplyIcon from '@mui/icons-material/Reply';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
- 
+ import { composeActions } from '../../../Store/Compose-Slice';
 //import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function EmailDetails(props) {
-    
+    const dispatch =  useDispatch()
  const item = useSelector((state)=>state.mail.detailsitem)
    
    
  const history = useHistory()
 
-console.log(item)
-const backHandler =()=>{
-history.replace('/welcomepage')
-}
+ 
+// const backHandler =()=>{
+// history.replace('/welcomepage')
+// }
+const mailpage = () => {
+    dispatch(composeActions.mailpageHandler(false));
+  };
 
   return (
-    <div className='emaildetails'>
+    <div className='email'>
     <div  className='emaillist__settings'>
     <div  className='emaillist__settingsLeft'>
-        <IconButton onClick={backHandler}>
+        <IconButton onClick={mailpage}>
             <ArrowBackIcon   />
         </IconButton>
         <IconButton>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import CreateIcon from "@mui/icons-material/Create";
 import "../../Css/sidebar.css";
@@ -19,11 +19,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { composeActions } from "../../../Store/Compose-Slice";
 import { useHistory } from "react-router-dom";
 import { IconButton } from "@mui/material";
-
+import axios from "axios";
+import { mailActions } from "../../../Store/Dataget-Slice";
 const Sidebar = () => {
-  const [activeinbox, setactiveinbox] = useState(false);
+  const [activeinbox, setactiveinbox] = useState(true);
   const [activesent,setactivesentbox]= useState(false)
+  const [counterval,setCounterval]= useState([])
   const history = useHistory();
+  // const counter = useSelector((state)=>state.mail.counter)
   const composeopen = useSelector((state) => state.compose.composeisopen);
   const dispatch = useDispatch();
   function composeHandle() {
@@ -38,7 +41,35 @@ const Sidebar = () => {
     history.replace("/welcomepage");
     setactiveinbox(true);
     setactivesentbox(false);
+
   };
+
+setInterval( async ()=> {
+  const res = await  axios.get(`https://mailbox-client-8738c-default-rtdb.firebaseio.com/notification.json` )
+  const loadcout = []
+for(const key in res.data){
+loadcout.push({ countvalue:res.data[key].counter})
+}
+setCounterval(loadcout)
+},15000)
+
+//   useEffect( ()=>{
+//     const counterHandler = async ()=> {
+//        const res = await  axios.get(`https://mailbox-client-8738c-default-rtdb.firebaseio.com/notification.json` )
+//        const loadcout = []
+//     for(const key in res.data){
+//      loadcout.push({ countvalue:res.data[key].counter})
+//     }
+//     setCounterval(loadcout)
+//     }
+//  counterHandler()
+  
+//   },[])
+counterval.map((item)=>{
+  dispatch(mailActions.readMail(item.countvalue))
+   
+})
+  
   return (
     <div className="sidebar">
       <Button
@@ -48,13 +79,16 @@ const Sidebar = () => {
       >
         Compose
       </Button>
+      
       <span onClick={inboxHandler}>
-        <SidebarOption
+       {counterval.map((item)=>(
+        <SidebarOption key= {item.id}
           Icon={InboxIcon}
           title="Inbox"
-          number="5000"
+          number={item.countvalue}
           isactive={activeinbox}
         />
+       ))} 
       </span>
       <SidebarOption Icon={StarRateIcon} title="Starred" number="300" />
       <SidebarOption Icon={WatchLaterIcon} title="Snoozed" number="1000" />
