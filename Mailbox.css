@@ -1,0 +1,36 @@
+.wrapper-class {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 8px;
+width:780px;
+height:250px;
+border: 1px solid whitesmoke;
+}
+.editor-class {
+  
+ 
+ 
+ position:absolute;
+ 
+ margin-top:0px;
+ margin-bottom: 50px;
+  background-color:rgb(255, 255, 255);
+  padding: 1rem;
+  border: 1px solid whitesmoke;
+  max-width:770px;
+  max-height:190px;
+  overflow:scroll;
+   
+  
+
+}
+.toolbar-class {
+  display:flex-inline;
+   transform: rotate(270deg);
+   border: 1px solid whitesmoke;
+width:60px;
+margin-left:410px;
+ margin-top:360px;
+margin-bottom:165px;
+}
